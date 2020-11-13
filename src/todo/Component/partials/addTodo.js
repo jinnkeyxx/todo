@@ -2,11 +2,11 @@ import React from 'react'
 import { Input } from 'antd';
 
 const { Search } = Input;
-class AddTodo extends React.Component{
-   onSearch = value => console.log(value);
+class AddTodo extends React.PureComponent{
+
     render(){
         return(
-            <Search placeholder="input search text" onSearch={this.onSearch} enterButton />
+            <Search placeholder="input search text" onSearch={this.props.Search} enterButton value={this.props.value} onChange={this.props.change}/>
         )
     }
 }

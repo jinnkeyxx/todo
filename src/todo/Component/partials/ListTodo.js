@@ -1,50 +1,53 @@
 import React from 'react'
-import { List, Avatar , Checkbox } from 'antd';
+import styled , {keyframes} from 'styled-components'
+import { bounce } from 'react-animations'
+import { List , Checkbox , Typography } from 'antd';
+import {DeleteOutlined} from '@ant-design/icons'
+const {Text} = Typography
+class ListTodo extends React.PureComponent{
 
-class ListTodo extends React.Component{
-    constructor(){
-        super()
-        this.state = {
-            data : [
-                {
-                    title: 'Ant Design Title 1',
-                },
-                {
-                    title: 'Ant Design Title 2',
-                },
-                {
-                    title: 'Ant Design Title 3',
-                },
-                {
-                    title: 'Ant Design Title 4',
-                },
-            ]
-        }
-    }
-    onChange(e) {
-        console.log(`checked = ${e.target.checked}`);
-    }
+
     render(){
+
         return(
             <>
             <List style={{paddingTop : "20px"}}
             itemLayout="horizontal"
-            dataSource={this.state.data}
-            renderItem={item => (
-            <List.Item>
-                <List.Item.Meta
-                avatar={<Checkbox onChange={this.onChange}></Checkbox>}
-                title={<a href="https://ant.design">{item.title}</a>}
-                description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                />
-                <div>
-                    <Checkbox></Checkbox>
-                </div>
-            </List.Item>
-            )}
+            dataSource={this.props.data}
+            renderItem={item => {
+                if(!item.show){
+
+                    return <p style={this.props.style} className="deleted">deleted</p>
+                }
+                else {
+                    return(
+                        <List.Item>
+                            <List.Item.Meta
+                            avatar={<Checkbox onChange={() =>this.props.doneTodo(item.id)} checked={item.done}>
+                                {item.done ? (<Text delete type="danger">{item.title}</Text>) : (<Text>{item.title}</Text>)}
+                            </Checkbox>}
+                        />
+                            <div>
+                                <DeleteOutlined onClick={() => this.props.click(item.id)}/>
+                            </div>
+                        </List.Item>
+                    )
+                }
+
+
+            }
+
+
+            }
            />
            </>
         )
     }
 }
+// ListTodo.defaultProps = {
+//     style : {
+//         color : 'red'
+//     }
+// }
+
 export default ListTodo

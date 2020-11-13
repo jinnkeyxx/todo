@@ -1,7 +1,7 @@
 import React from 'react'
 import {Layout} from 'antd'
 const {Header} = Layout
-class HeaderComponent extends React.Component{
+class HeaderComponent extends React.PureComponent{
     render(){
         return(
             <>
